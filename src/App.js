@@ -1,19 +1,6 @@
-import React, { Component } from 'react'
+import React from 'react'
+import Routes from 'routes'
 
-class App extends Component {
+const App = () => <Routes />
 
-  render() {
-    const headerStyle = {
-      textShadow: '1px 2px #282794',
-      textAlign: 'center'
-    }
-    return (
-      <div className="container">
-        <div className="card card-body">
-          <h2 style={headerStyle} >NASA's Picture of the Day</h2>
-        </div>
-      </div>
-    )
-  }
-}
 export default App
