@@ -1,2 +1,1 @@
-export { default as ImageCard } from './ImageCard'
-export { default as VideoCard } from './VideCard'
+export { default as ApodCard } from './ApodCard'

@@ -1,6 +1,6 @@
 import React, { useState, useLayoutEffect } from 'react'
-import { DateInput, ImageCard, VideoCard } from 'components'
-import { isImageorVideo, randomDate } from 'utils'
+import { DateInput, ApodCard } from 'components'
+import { randomDate } from 'utils'
 import moment from 'moment'
 
 const NasaContainer = () => {
@@ -11,15 +11,20 @@ const NasaContainer = () => {
 
   useLayoutEffect(() => {
     const { REACT_APP_BASE_URL, REACT_APP_NASA_API_KEY } = process.env
-    console.log(REACT_APP_BASE_URL, REACT_APP_NASA_API_KEY)
     fetch(
-      `${REACT_APP_BASE_URL}?api_key=${REACT_APP_NASA_API_KEY}&&date=${new moment(
+      `${REACT_APP_BASE_URL}?api_key=${REACT_APP_NASA_API_KEY}&date=${new moment(
         currentDate,
       ).format('YYYY-MM-DD')}`,
     )
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw Error('response.statusText')
+        }
+        return res.json()
+      })
       .then((res) => setApod(res))
       .catch((error) => {
+        setApod({})
         console.log('Fetch API fails!', error)
       })
   }, [currentDate])
@@ -33,7 +38,7 @@ const NasaContainer = () => {
           handleDate={handleDate}
           handleRandom={handleRandom}
         />
-        {apod && isImageorVideo(apod.url) ? <ImageCard /> : <VideoCard />}
+        {Object.keys(apod).length > 0 && <ApodCard apod={apod} />}
       </div>
     </div>
   )

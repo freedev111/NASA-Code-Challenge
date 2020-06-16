@@ -14,7 +14,7 @@ const DateInput = ({ currentDate, handleDate, handleRandom }) => (
     />
     <div className='input-action'>
       <button onClick={handleRandom} className='btn btn-primary'>
-        Random Image
+        Random Date
       </button>
     </div>
   </div>
